@@ -5,6 +5,7 @@ from datetime import timedelta
 import math
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -141,7 +142,7 @@ y_pred = tf.nn.softmax(layer_fc2, name='y_pred')
 y_pred_cls = tf.argmax(y_pred, dimension=1)
 
 # cross_entropy
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=layer_fc2,
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=layer_fc2,
                                                         labels=y_true)
 # average cross_entropy
 cost = tf.reduce_mean(cross_entropy)
@@ -168,7 +169,6 @@ def show_progress(epoch, feed_dict_train, feed_dict_validate, val_loss):
     print(msg.format(epoch + 1, acc, val_acc, val_loss))
 
 total_iterations = 0
-
 saver=tf.train.Saver()
 def train(num_iterations):
     global total_iterations
@@ -186,10 +186,21 @@ def train(num_iterations):
         if i % int(data.train.num_examples() / BATCH_SIZE) == 0:
             val_loss = session.run(cost, feed_dict=feed_dict_val)
             epoch = int(i / int(data.train.num_examples() / BATCH_SIZE))
-
+            epochs.append(epoch)
+            validation_loss.append(val_loss)
             show_progress(epoch, feed_dict_tr, feed_dict_val, val_loss)
             saver.save(session, './characters_model')
 
     total_iterations += num_iterations
 
-train(num_iterations=3000)
+
+validation_loss = []
+epochs = []
+train(num_iterations=25000)
+
+validation_loss = np.array(validation_loss)
+epochs = np.array(epochs)
+
+plt.plot(epochs, validation_loss)
+plt.show()
+plt.savefig('Validation_Loss.png')

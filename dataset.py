@@ -51,20 +51,20 @@ class DataSet(object):
 
 
 
-def load_train(train_path, fonts):
+def load_data(train_path, fonts):
     ch_pixels = []
     ch_names = []
     classes = []
 
     # print(fonts)
-    for font in fonts[:40]:
+    for font in fonts:
         path = os.path.join(train_path, font)
         data_frame = pd.read_csv(path)
         data = data_frame.values    # table
 
         for d in data:
             # character in integer
-            if (d[2] >= 65 and d[2] <= 90):
+            if (d[2] >= 65 and d[2] <= 122):
                 classes.append(d[2])
 
                 # pixels in 20 * 20 * 3
@@ -93,7 +93,7 @@ def load_train(train_path, fonts):
         #print(character_int)
         index = character_int - 65
         temp[index] = 1.0
-        print(temp)
+        #print(temp)
         ch_names.append(temp)
 
     ch_names = np.array(ch_names)
@@ -121,7 +121,7 @@ def read_train_sets(train_path, fonts, validation_size):
         pass
     data_sets = DataSets()
 
-    ch_names, ch_pixels, classes = load_train(train_path, fonts)
+    ch_names, ch_pixels, classes = load_data(train_path, fonts)
     ch_names, ch_pixels, classes = shuffle(ch_names, ch_pixels, classes)
     if isinstance(validation_size, float):
         validation_size = int(validation_size * ch_names.shape[0])
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     train_path = 'Dataset'
     fonts = os.listdir(train_path)
     #print(fonts)
-    ch_names, ch_pixels, classes = load_train(train_path, fonts)
+    ch_names, ch_pixels, classes = load_data(train_path, fonts)
     print(ch_names[0])
     plt.imshow(ch_pixels[0])
     plt.show()
