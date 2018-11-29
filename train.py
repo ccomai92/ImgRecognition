@@ -203,4 +203,4 @@ epochs = np.array(epochs)
 
 plt.plot(epochs, validation_loss)
 plt.show()
-plt.savefig('Validation_Loss.png')
+#plt.savefig('Validation_Loss.png')

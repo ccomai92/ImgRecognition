@@ -15,7 +15,7 @@ Training Epoch 6 --- Training Accuracy:  93.8%, Validation Accuracy:  78.1%,  Va
 Training Epoch 7 --- Training Accuracy:  93.8%, Validation Accuracy:  81.2%,  Validation Loss: 0.452
 Training Epoch 8 --- Training Accuracy:  96.9%, Validation Accuracy:  78.1%,  Validation Loss: 0.530
 Training Epoch 9 --- Training Accuracy:  96.9%, Validation Accuracy:  93.8%,  Validation Loss: 0.216
-Training Epoch 10 --- Training Accuracy:  96.9%, Validation Accuracy:  90.6%,  Validation Loss: 0.275
+Training Epoch 10 --- Training Accuracy:  96.9%, Validation Accuracy:   90.6%,  Validation Loss: 0.275
 Training Epoch 11 --- Training Accuracy:  96.9%, Validation Accuracy:  87.5%,  Validation Loss: 0.305
 Training Epoch 12 --- Training Accuracy:  96.9%, Validation Accuracy:  78.1%,  Validation Loss: 0.359
 Training Epoch 13 --- Training Accuracy:  96.9%, Validation Accuracy:  93.8%,  Validation Loss: 0.218
