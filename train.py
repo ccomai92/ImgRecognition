@@ -196,7 +196,7 @@ def train(num_iterations):
 
 validation_loss = []
 epochs = []
-train(num_iterations=25000)
+train(num_iterations=40000)
 
 validation_loss = np.array(validation_loss)
 epochs = np.array(epochs)
