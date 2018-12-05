@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{sachan_2017}
+SACHAN, A.: Tensorflow tutorial 2: image classifier using convolutional neural
+  network (Feb 2017),
+  \url{https://cv-tricks.com/tensorflow-tutorial/training-convolutional-neural-network-for-image-classification/}
+
+\end{thebibliography}

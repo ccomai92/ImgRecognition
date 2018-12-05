@@ -1,16 +1,17 @@
-\documentclass[12]{article}
+\documentclass[runningheads]{llncs}
+\usepackage{graphicx}
 \title{\textbf{RGB Image Character Classification}}
 \date{Dec-07-2018}
-\author{Gihwan "Kris" Kwon}
-
-
+\author{Gihwan "Kris" Kwon\inst[1]}
+\institute{University of Washington Bothell, Bothell WA 98011, USA\\
+\email{kwonerstone3@gmail.com}\\}
 
 \begin{document}
     \maketitle
     \pagenumbering{arabic}
     \begin{abstract}
         This is Abstract.
-        \vspace{1in}
+        \keywords{First keyword \and second key word.}
     \end{abstract}
 
     \section{Introduction}
@@ -22,20 +23,27 @@
             \input{data_preprocessing}
         \subsection{Training}
             \input{training}
-        \subsection{Prediction}
-            \input{prediction}
 
     \section{Experiment and Result}
-        \subsection{}
+        \input{EnR}
+        \subsection{Training}
+            \input{trainingResult}
+        \subsection{Prediction}
+            \input{predictionResult}
         \paragraph{}
-        \subparagraph{}
+        \begin{figure}
+        \includegraphics[width=\textwidth]{fig1.eps}
+        \caption{A figure caption is always placed below the illustration.
+        Please note that short captions are centered, while long ones are
+        justified by the macro package automatically.} \label{fig1}
+        \end{figure}
+        Hello World!\cite{sachan_2017}
         \begin{equation}
             f(x) = x^2
         \end{equation}
     \section{Conclusion}
 
-    \section{Reference}
+    \bibliographystyle{splncs04}
+    \bibliography{references}
 
-
-    Hello World!
 \end{document}
