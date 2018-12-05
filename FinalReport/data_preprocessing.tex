@@ -1,0 +1,31 @@
+The original data sets are organized in the .csv file.
+The objects are consist of attributes such as \textit{font} (string), \textit{fontVariant} (string), \textit{label}(int),
+\textit{strength} (int), \textit{italic} (int), \textit{orientation} (int), \textit{m top} (int), \textit{m left} (int),
+\textit{originalH} (int), \textit{originalW} (int), \textit{h} (int), \textit{w} (int), and 20 by 20 size grey scale image matrix.
+Most of the attribute names are self-explanatory. However, to be more specific,
+\textit{m top} and \textit{m left} are coordiate where image of the character starts in the real image in terms of row and column.
+Moreover, \textit{originalH} and \textit{originalW} are original image size. Finally, \textit{h} and texit{w} are the height and weidth of
+the image.
+\newline
+\newline
+\indent
+To begin with, some of the attributes are omitted in this process because recognizing font and whether the
+character is italic are not the part of this project. Moreover, all the character images are original image.
+In other words, image in the datasets only contains one character. Therefore, \textit{label} of the character and the
+20 by 20 size grey scale image is going to be used in this project.
+\newline
+\newline
+\indent
+Next step is to convert the grey scale matrix into the RGB matrix which is three dimensional. The result matrix
+after preprocessing would produce 20 by 20 by 3 image matrix. To be specific, conversion took place by appending
+the original grey scale matrix into the result matrix three times. The result is the N number of RGB image matrices.
+\newline
+\newline
+\indent
+Furthermore, data preprocessing step produces a vector that values in each index contains character label and this
+corresponds the image matrices stored in the image matrices. Finally, this step produces a matrix size of N by the number
+of unique characters. The value in the indices are initially zeros in floating point. After image conversions, based on
+the image label, vector for each image will contain 1.0 where index corresponds the image label. For instance, if there are
+five different unique image labels in 10 different objects, the result will be ten by five matrix containing 1.0 in the vector
+where index matches the character label, otherwise values will be 0.0s. In this case, the floating point one value specifies that
+the index, character label, is true for corresponding image.
