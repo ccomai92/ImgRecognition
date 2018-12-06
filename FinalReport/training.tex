@@ -9,6 +9,10 @@ utilizing the Tensorflow python package.
 \indent
 The hidden are further divided into three layers: Convolution, Flattening, and Fully Connected layers.
 For this project, there are three convolution layers, one flattening layer, and two fully connected layers.
+    \begin{figure}
+        \includegraphics[width=\textwidth, scale=0.25]{flow.eps}
+        \caption{Validation loss graph for epoch size 21 with learning rate 0.0001.\cite{sachan_2017}} \label{Figure1}
+    \end{figure}
 
 \subsubsection{Convolution Layer} is filtering layer.
 Convolution layer applies filter to find patterns in the input image. The size of the filter is three by three matrices. The values
@@ -50,4 +54,3 @@ the highest probabilities of the result. Then, it compares the predicted labels 
 Based on the result of the prediction, the model calcualtes the cost by utilizing the cross entropy function and the
 average of its result. Finally, this model "uses AdamOptimizer for gradient calculation and weight optimization."\cite{sachan_2017}
 This model tries this method to minimize the cost with a learning rate of 0.0001.
-
