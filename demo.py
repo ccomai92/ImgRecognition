@@ -1,3 +1,8 @@
+"""
+Demo main
+Reference: https://cv-tricks.com/tensorflow-tutorial/training-convolutional-neural-network-for-image-classification/
+"""
+
 import tensorflow as tf
 import os
 import pandas as pd
