@@ -19,7 +19,7 @@ ch_names, ch_pixels, classes = dataset.load_data(TRAIN_PATH, classes)
 print(ch_pixels.shape)
 
 #for i in np.arange(ch_pixels[:, 0, 0, 0].size):
-x_batch = ch_pixels[:3]
+x_batch = ch_pixels[:3]  # demo only shows three
 #    print(x_batch)
 sess = tf.Session()
 saver = tf.train.import_meta_graph('characters_model.meta')
@@ -52,7 +52,3 @@ for result in results:
     print(chr(classes[i]))
     print(result)
     i += 1
-
-#print("Correct prediction: ", count)
-#print("Total prediction: ", i)
-#print("Accuracy (%): ", count / i * 100)

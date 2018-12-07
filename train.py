@@ -1,3 +1,8 @@
+"""
+Training model
+Reference: https://cv-tricks.com/tensorflow-tutorial/training-convolutional-neural-network-for-image-classification/
+"""
+
 import dataset
 import tensorflow as tf
 import time
@@ -20,15 +25,16 @@ set_random_seed(2)
 classes = os.listdir('Dataset')
 
 # CONSTANTS
-# 20% of data wil be automatically be used for validation
-VALIDATION_SIZE = 0.1
-NUM_CHANNELS = 3
-TRAIN_PATH = 'Dataset'
-IMG_SIZE = 20
+VALIDATION_SIZE = 0.1   # 10 folds validation
+NUM_CHANNELS = 3        # RGB images are 3D image matrices
+TRAIN_PATH = 'Dataset'  # Folder name for input datasets
+IMG_SIZE = 20           # Size of input data 20 * 20
+BATCH_SIZE = 32         # Size of one batch
 
-# Reading input data
+# Reading input datasets (training and validation)
 data = dataset.read_train_sets(TRAIN_PATH, classes, VALIDATION_SIZE)
 
+# Log data for training
 print("Complete Reading input data. ")
 print("Number of images in training-set:\t{}".format(len(data.train.img_labels())))
 print("Number of labels in validation-set:\t{}".format(len(data.valid.img_labels())))
@@ -45,13 +51,16 @@ num_classes = data.train.img_labels()[0].size
 y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
 
-## Network graph params
+## Network graph params for convolution layers
+
+# 3*3 filter size with 32 different filters
 filter_size_conv1 = 3
 num_filters_conv1 = 32
 
 filter_size_conv2 = 3
 num_filters_conv2 = 32
 
+# 3*3 filter size with 64 different filters
 filter_size_conv3 = 3
 num_filters_conv3 = 64
 
@@ -59,25 +68,29 @@ num_filters_conv3 = 64
 fc_layer_size = 128
 
 def create_weights(shape):
+    # Randomly initializing weights
     return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
 
 def create_biases(size):
+    # Randomly initializing biases
     return tf.Variable(tf.constant(0.05, shape=[size]))
 
 
 def create_convolutional_layer(input, num_input_channels,
                             conv_filter_size, num_filters):
-    # define the weights that will be trained
+    # initializing weights
     weights = create_weights(shape=[conv_filter_size, conv_filter_size, num_input_channels, num_filters])
 
-    # create biases
+    # initializing biases
     biases = create_biases(num_filters)
 
-    # creating convolutional layer
+    # Defining 2D convolutional layer applying weights and padding.
     layer = tf.nn.conv2d(input=input, filter=weights, strides=[1, 1, 1, 1], padding='SAME')
+
+    # Add biases on the filtered images.
     layer += biases
 
-    # max-pooling
+    # max-pooling from filtered images
     layer = tf.nn.max_pool(value=layer, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     # Output of pooling is fed to Relu
@@ -109,6 +122,8 @@ def create_fc_layer(input, num_inputs, num_outputs, use_relu=True):
         layer = tf.nn.relu(layer)
     return layer
 
+
+# Flow of tensor
 layer_conv1 = create_convolutional_layer(input=x,
                 num_input_channels=NUM_CHANNELS,
                 conv_filter_size=filter_size_conv1,
@@ -147,13 +162,11 @@ cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=layer_fc2,
 # average cross_entropy
 cost = tf.reduce_mean(cross_entropy)
 
-optimizer = tf.train.AdamOptimizer(learning_rate=1e-4).minimize(cost)
 
 # run optimizer operation inside session.run(), inorder to calculate
 # the whole network will have to be run and we will pass the training image
 # in a feed_dict
-
-BATCH_SIZE = 32
+optimizer = tf.train.AdamOptimizer(learning_rate=1e-4).minimize(cost)
 
 correct_prediction = tf.equal(y_pred_cls, y_true_cls)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
@@ -171,6 +184,7 @@ def show_progress(epoch, feed_dict_train, feed_dict_validate, val_loss):
 total_iterations = 0
 saver=tf.train.Saver()
 def train(num_iterations):
+    # Actual training for the model
     global total_iterations
 
     for i in range(total_iterations, total_iterations + num_iterations):
