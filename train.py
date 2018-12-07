@@ -67,6 +67,10 @@ num_filters_conv3 = 64
 # Fully connected layer
 fc_layer_size = 128
 
+
+
+## Defining Tensors for training
+
 def create_weights(shape):
     # Randomly initializing weights
     return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
@@ -123,7 +127,7 @@ def create_fc_layer(input, num_inputs, num_outputs, use_relu=True):
     return layer
 
 
-# Flow of tensor
+## Flow of tensor
 layer_conv1 = create_convolutional_layer(input=x,
                 num_input_channels=NUM_CHANNELS,
                 conv_filter_size=filter_size_conv1,
@@ -176,8 +180,13 @@ session.run(tf.global_variables_initializer())
 # y_true_batch is BATCH_SIZE of labels
 # x_batch is BATCH_SIZE of images
 def show_progress(epoch, feed_dict_train, feed_dict_validate, val_loss):
+    # get accuracy from result tensor for training dataset
     acc = session.run(accuracy, feed_dict=feed_dict_train)
+
+    # validation accuracy from result tensor for validation dataset
     val_acc = session.run(accuracy, feed_dict=feed_dict_validate)
+
+    # output log
     msg = "Training Epoch {0} --- Training Accuracy: {1:>6.1%}, Validation Accuracy: {2:>6.1%},  Validation Loss: {3:.3f}"
     print(msg.format(epoch + 1, acc, val_acc, val_loss))
 
@@ -189,15 +198,20 @@ def train(num_iterations):
 
     for i in range(total_iterations, total_iterations + num_iterations):
 
+        # get next batch from training dataset
         y_true_batch, x_batch, cls_batch = data.train.next_batch(BATCH_SIZE)
+
+        # get next batch from validation dataset
         y_valid_batch, x_valid_batch, valid_cls_batch = data.valid.next_batch(BATCH_SIZE)
 
         feed_dict_tr = {x: x_batch, y_true: y_true_batch}
         feed_dict_val = {x: x_valid_batch, y_true: y_valid_batch}
 
+        # running optimizer
         session.run(optimizer, feed_dict=feed_dict_tr)
 
         if i % int(data.train.num_examples() / BATCH_SIZE) == 0:
+            # get validation loss from calculating cost
             val_loss = session.run(cost, feed_dict=feed_dict_val)
             epoch = int(i / int(data.train.num_examples() / BATCH_SIZE))
             epochs.append(epoch)
@@ -210,11 +224,13 @@ def train(num_iterations):
 
 validation_loss = []
 epochs = []
-train(num_iterations=40000)
+train(num_iterations=25000)
 
+# convert validation loss and epochs into numpy array
 validation_loss = np.array(validation_loss)
 epochs = np.array(epochs)
 
+# plot for validation loss
 plt.plot(epochs, validation_loss)
 plt.show()
 #plt.savefig('Validation_Loss.png')

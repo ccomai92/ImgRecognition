@@ -14,16 +14,20 @@ TRAIN_PATH = 'TestingData'
 classes = os.listdir('TestingData')
 images = []
 
+# load testing data using path and file names
 ch_names, ch_pixels, classes = dataset.load_data(TRAIN_PATH, classes)
-print(ch_pixels.shape)
+#print(ch_pixels.shape)
 
-#for i in np.arange(ch_pixels[:, 0, 0, 0].size):
+# get the batch from loaded dataset
 x_batch = ch_pixels
 #    print(x_batch)
+
+# get trained model
 sess = tf.Session()
 saver = tf.train.import_meta_graph('characters_model.meta')
 saver.restore(sess, tf.train.latest_checkpoint('./'))
 
+# testing
 graph = tf.get_default_graph()
 y_pred = graph.get_tensor_by_name("y_pred:0")
 
@@ -34,6 +38,8 @@ y_test_images = np.zeros((5564, 58)) # (0., 0., ... , 1.)
 feed_dict_testing = {x: x_batch, y_true: y_test_images}
 results=sess.run(y_pred, feed_dict=feed_dict_testing)
 
+# Count total number of testing dataset and correct prediction to get
+# accuracy of the model prediction.
 count = 0
 i = 0
 for result in results:
