@@ -6,8 +6,17 @@
 **************************************************************************
 
 <Tech Specs>
-Used under Ubuntu 18.04 operating system
-Packages used as ...
+Tested on Ubuntu 18.04 operating system
+Tested on Windows 10 operating system 
+Python version: 3.6
+
+Packages installed ...
+pip install pandas 
+pip install tensorflow 
+pip install matplotlib 
+pip install sklearn 
+
+for package dependency listed
 - import pandas
 - import numpy
 - from sklearn.utils import shuffle
@@ -24,9 +33,9 @@ Packages used as ...
 
 <Compilation & Running>
 Training:
-    ~ python3 train.py
+    ~ python3 train.py or python train.py
 Testing:
-    ~ python3 predict.py
+    ~ python3 predict.py or python predict.py 
 
 <Demo>
 Link to the video: https://www.youtube.com/watch?v=hLINRNt9Jfs
