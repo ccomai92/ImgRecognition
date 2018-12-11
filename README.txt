@@ -45,7 +45,8 @@ Link to the video: https://www.youtube.com/watch?v=hLINRNt9Jfs
 Output:
 ~ python3 demo.py
 (5564, 20, 20, 3)
-2018-12-07 00:12:43.901252: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-12-07 00:12:43.901252: I tensorflow/core/platform/cpu_feature_guard.cc:141]
+Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 Test set  0 :
 False
 z
