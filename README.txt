@@ -8,6 +8,8 @@
 <Tech Specs>
 Tested on Ubuntu 18.04 operating system
 Tested on Windows 10 operating system 
+(outputs from running program on windows 10 and Ubuntu 18.04 are different)
+
 Python version: 3.6
 
 Packages installed ...
