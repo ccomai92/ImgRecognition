@@ -35,7 +35,7 @@ y_pred = graph.get_tensor_by_name("y_pred:0")
 
 x = graph.get_tensor_by_name("x:0")
 y_true = graph.get_tensor_by_name('y_true:0')
-y_test_images = np.zeros((5564, 58)) # (0., 0., ... , 1.)
+y_test_images = np.zeros((5564, 58))                    # (0., 0., ... , 1.)
 
 feed_dict_testing = {x: x_batch, y_true: y_test_images}
 results=sess.run(y_pred, feed_dict=feed_dict_testing)

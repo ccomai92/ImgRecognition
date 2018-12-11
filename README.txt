@@ -6,6 +6,7 @@
 **************************************************************************
 
 <Tech Specs>
+Used under Ubuntu 18.04 operating system
 Packages used as ...
 - import pandas
 - import numpy
